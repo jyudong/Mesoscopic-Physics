@@ -1,0 +1,130 @@
+\documentclass[reqno,a4paper,12pt]{amsart}
+
+\usepackage{amsmath,amssymb,amsthm,geometry,xcolor,soul,graphicx}
+\usepackage{titlesec}
+\usepackage{enumerate}
+\usepackage{lipsum}
+\usepackage{listings}
+%\RequirePackage[most]{tcolorbox}
+\usepackage{braket}
+\usepackage{dutchcal} %could use \mathcal{} format for minuscule
+%\usepackage{mathrsfs} %could use \mathscr{} format
+\allowdisplaybreaks[4] %align公式跨页
+\usepackage{xeCJK}
+\setCJKmainfont[AutoFakeBold = true]{Kai}
+\geometry{left=0.7in, right=0.7in, top=1in, bottom=1in}
+
+\renewcommand{\baselinestretch}{1.3}
+
+\title{介观物理第十三次作业}
+\author{董建宇 ~~ 202328000807038}
+
+\begin{document}
+
+\maketitle
+%\titleformat{\section}[hang]{\small}{\thesection}{0.8em}{}{}
+%\titleformat{\subsection}[hang]{\small}{\thesubsection}{0.8em}{}{}
+
+电子在周期势场$V(\mathbf{r})$中运动，满足薛定谔方程为：
+\[
+	H \ket{\psi_{n\mathbf{k}}} = \varepsilon \ket{\psi_{n\mathbf{k}}},
+\]
+
+其中
+\[
+	H = \frac{1}{2m} [-i\hbar\nabla + e\mathbf{A}(\mathbf{r})]^2 + V(\mathbf{r}),
+\]
+
+其中$\mathbf{A}(\mathbf{r})$为电磁矢势。假设$\ket{\psi_{n\mathbf{k}}} = e^{i\mathbf{k}\cdot\mathbf{r}} \ket{u_{n\mathbf{k}}}$满足：
+\[
+	\mathcal{h} \ket{u_{n\mathbf{k}}} = \varepsilon_{n\mathbf{k}} \ket{u_{n\mathbf{k}}}.
+\]
+
+\begin{enumerate}
+
+\item 请证明：
+\[
+	\mathcal{h} = \frac{1}{2m}[-i\hbar\nabla + \hbar\mathbf{k} + e\mathbf{A}(\mathbf{r})]^2 + V(\mathbf{r}),
+\]
+
+\begin{proof}
+
+将哈密顿量展开，写作：
+\[
+	H = \frac{1}{2m}[-i\hbar\nabla + e\mathbf{A}]^2 + V = \frac{1}{2m}(-\hbar^2\nabla^2 + e^2\mathbf{A}^2 - 2ie\hbar\mathbf{A}\cdot\nabla) + V.
+\]
+
+分别作用在$\ket{\psi_{n\mathbf{k}}} = e^{i\mathbf{k} \cdot \mathbf{r}} \ket{u_{n\mathbf{k}}}$可得：
+\begin{align*}
+	\nabla \cdot \nabla(e^{i\mathbf{k} \cdot \mathbf{r}} \ket{u_{n\mathbf{k}}}) =& \nabla \cdot \left( e^{i\mathbf{k} \cdot \mathbf{r}} \nabla \ket{u_{n\mathbf{k}}} + i\mathbf{k} e^{i\mathbf{k} \cdot \mathbf{r}} \ket{u_{n\mathbf{k}}} \right) \\
+	=& e^{i\mathbf{k} \cdot \mathbf{r}} \nabla^2 \ket{u_{n\mathbf{k}}} + 2i\mathbf{k} e^{i\mathbf{k} \cdot \mathbf{r}} \cdot \nabla \ket{u_{n\mathbf{k}}} - \mathbf{k}^2 e^{i\mathbf{k} \cdot \mathbf{r}} \ket{u_{n\mathbf{k}}} \\
+	=& e^{i\mathbf{k} \cdot \mathbf{r}} (\nabla + i\mathbf{k})^2 \ket{u_{n\mathbf{k}}}; \\
+	\nabla \left( e^{i\mathbf{k} \cdot \mathbf{r}} \ket{u_{n\mathbf{k}}} \right) =& e^{i\mathbf{k} \cdot \mathbf{r}} (\nabla+i\mathbf{k}) \ket{u_{n\mathbf{k}}}.
+\end{align*}
+
+从而可以计算：
+\begin{align*}
+	H \ket{\psi_{n\mathbf{k}}} =& e^{i\mathbf{k} \cdot \mathbf{r}} \left[ \frac{1}{2m}((-i\hbar\nabla + \hbar\mathbf{k})^2 + 2e\mathbf{A} \cdot (-i\hbar\nabla + \hbar\mathbf{k}) + e^2\mathbf{A}^2) + V \right] \ket{u_{n\mathbf{k}}} \\
+	=& e^{i\mathbf{k} \cdot \mathbf{r}} \left[ \frac{1}{2m} (-i\hbar\nabla + \hbar\mathbf{k} + e\mathbf{A})^2 + V \right] \ket{u_{n\mathbf{k}}} \\
+	=& e^{i\mathbf{k} \cdot \mathbf{r}} \varepsilon_{n\mathbf{k}} \ket{u_{\mathbf{k}}}.
+\end{align*}
+
+即有：
+\[
+	\mathcal{h} = \frac{1}{2m}[-i\hbar\nabla + \hbar\mathbf{k} + e\mathbf{A}(\mathbf{r})]^2 + V(\mathbf{r}).
+\]
+\end{proof}
+
+
+\item 速度算符可以写成：
+\[
+	\mathbf{v} = \frac{1}{m}[-i\hbar\nabla + e\mathbf{A}(\mathbf{r}) + \hbar\mathbf{k}] = \frac{1}{\hbar}\frac{\partial \mathcal{h}}{\partial \mathbf{k}}.
+\]
+
+\begin{proof}
+注意到：$\mathcal{h}$可以写成动能项和势能项的和，即：
+\[
+	\mathcal{h} = \frac{1}{2}m \mathbf{v}^2 + V(\mathbf{r}).
+\]
+
+从而不难得到：
+\[
+	\mathbf{v} = \frac{1}{m}[-i\hbar\nabla + e\mathbf{A}(\mathbf{r}) + \hbar\mathbf{k}] = \frac{1}{\hbar}\frac{\partial \mathcal{h}}{\partial \mathbf{k}}.
+\]
+\end{proof}
+
+
+\item 证明：
+\[
+	\bra{u_{n'\mathbf{k}}} [\mathbf{r}, \mathcal{h}] \ket{u_{n\mathbf{k}}} = -i\hbar \bra{u_{n'\mathbf{k}}} \mathbf{v} \ket{u_{n\mathbf{k}}}.
+\]
+
+\begin{proof}
+要证明上式，只需计算$\mathbf{r}$和$\mathcal{h}$的对易关系，具体计算如下：
+\begin{align*}
+	[\mathbf{r}, \mathcal{h}] =& \frac{1}{2m}[\mathbf{r}, (-i\hbar\nabla + \hbar\mathbf{k} + e\mathbf{A})^2] \\
+	=& \frac{1}{2m} [\mathbf{r}, -\hbar^2\nabla^2 + (\hbar\mathbf{k} + e\mathbf{A})^2 - 2i\hbar(\hbar\mathbf{k} + e\mathbf{A}) \cdot \nabla] \\
+	=& \frac{1}{2m}[\mathbf{r}, \mathbf{p}^2] + \frac{1}{m}[\mathbf{r}, (\hbar\mathbf{k}+e\mathbf{A}) \cdot \mathbf{p}] \\
+	=& \frac{i\hbar}{m} \mathbf{p} + \frac{1}{m} (\hbar\mathbf{k} + e\mathbf{A}) i\hbar \\
+	=& i\hbar \frac{1}{m}(-i\hbar\nabla + \hbar\mathbf{k} + e\mathbf{A}) \\
+	=& i\hbar \mathbf{v}.
+\end{align*}
+
+其中，$\mathbf{p} = -i\hbar\nabla$，此外利用了基本对易关系：
+\[
+	[x_i, p_j] = i\hbar\delta_{ij}, \ \ i,j = 1,2,3.
+\]
+
+即有：
+\[
+	\bra{u_{n'\mathbf{k}}} [\mathbf{r}, \mathcal{h}] \ket{u_{n\mathbf{k}}} = i\hbar \bra{u_{n'\mathbf{k}}} \mathbf{v} \ket{u_{n\mathbf{k}}}.
+\]
+\end{proof}
+
+\end{enumerate}
+
+
+
+
+
+\end{document}

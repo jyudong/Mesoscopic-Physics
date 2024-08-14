@@ -1,0 +1,131 @@
+\documentclass[reqno,a4paper,12pt]{amsart}
+
+\usepackage{amsmath,amssymb,amsthm,geometry,xcolor,soul,graphicx}
+\usepackage{titlesec}
+\usepackage{enumerate}
+\usepackage{lipsum}
+\usepackage{listings}
+%\RequirePackage[most]{tcolorbox}
+\usepackage{braket}
+\allowdisplaybreaks[4] %align公式跨页
+\usepackage{xeCJK}
+\setCJKmainfont[AutoFakeBold = true]{Kai}
+\geometry{left=0.7in, right=0.7in, top=1in, bottom=1in}
+
+\renewcommand{\baselinestretch}{1.3}
+
+\title{介观物理第九次作业}
+\author{董建宇 ~~ 202328000807038}
+
+\begin{document}
+
+\maketitle
+\titleformat{\section}[hang]{\small}{\thesection}{0.8em}{}{}
+\titleformat{\subsection}[hang]{\small}{\thesubsection}{0.8em}{}{}
+
+\textbf{Problem III.3} Order of magnitude estimation: For a Fermi energy of $E_F$ and $N$ electrons in the metallic ring, the spacing between the bands will be on the order of $E_F/N$. Suppose that $N = 10^4$, estimate the level spacing of a typical ladder and the corresponding temperature scale. Then find the physical condition under which the persistent current can be observed in the presence of inelastic scattering. 
+
+Hint: The width of the Fermi tail should be small compared to the level spacing in Fig. 17.
+
+\begin{proof}
+为了进行数量级估计，可以取费米能为$E_F = 5eV$，则能隙大小约为：
+\[
+	E_{gap} \approx \frac{E_F}{N} = 5\times 10^{-4} eV.
+\]
+
+对应温度为：
+\[
+	T = \frac{E_{gap}}{k_B} = 5.80K.
+\]
+
+即温度高于$5.80K$，且圆环尺寸为介观尺度，约小于$10^{-6}m$，可以观察到非弹性散射存在条件下的持续的电流。
+\end{proof}
+
+
+\textbf{Problem III.5} Check Eqs. (193) with the unitary condition $SS^\dagger = \mathbb{I}$.
+\begin{align*}
+	&T_i = \sum_j T_{ij}, \ \ R_i = \sum_j R_{ij}; \tag{193a} \\
+	&\sum_i T_i = \sum_i (1-R_i), \ \ \sum_i T_i' = \sum_i (1-R_i'); \tag{193b} \\
+	&R_i' + T_i = 1, \ \ R_i + T_i' = 1; \tag{193c}
+\end{align*}
+
+\begin{proof}
+$S$矩阵为：
+\[
+	S = \left( \begin{matrix}
+		r & t' \\
+		t & r'
+	\end{matrix} \right).
+\]
+
+其中$r, r'; \ t, t'$都是$N\times N$矩阵。则可以计算：
+\[
+	SS^\dagger = \left( \begin{matrix}
+		r & t' \\
+		t & r'
+	\end{matrix} \right) \left( \begin{matrix}
+		r^\dagger & t^\dagger \\
+		t'^\dagger & r'^\dagger
+	\end{matrix} \right) = \left( \begin{matrix}
+		r r^\dagger + t't'^\dagger & rt^\dagger + t'r'^\dagger \\
+		tr^\dagger + r't'^\dagger & tt^\dagger + r'r'^\dagger
+	\end{matrix} \right) = \left( \begin{matrix}
+		\mathbb{I}_N & 0 \\
+		0 & \mathbb{I}_N
+	\end{matrix} \right).
+\]
+
+其中$\mathbb{I}_N$是$N\times N$的单位矩阵。当具有时间反演对称性时，$S$是一个对称矩阵，即$S = S^T$，从而有
+\[
+	r = r^T; \ \ r' = r'^T; \ \ t' = t^T; \ \ t = t'^T.
+\]
+
+即矩阵元满足如下关系；
+\[
+	r_{ij} = r_{ji}; \ \ r'_{ij} = r'_{ji}.
+\]
+
+根据$rr^\dagger + t't'^\dagger = \mathbb{I}_N$，从而可以计算：
+\[
+	\sum_m r_{im}r_{im}^* + \sum_n {t'}_{in}{t'}_{in}^* = R_i + T'_i = 1.
+\]
+
+类似的，根据$tt^\dagger + r'r'^\dagger = \mathbb{I}_N$，从而可以计算：
+\[
+	\sum_m t_{im}t_{im}^* + \sum_n {r'}_{in}{r'}_{in}^* = T_i + R'_i = 1.
+\]
+
+即验证了式(193c)。
+
+利用$t' = t^T$，则有$t'^\dagger = t^*$，从而有：
+\[
+	r r^\dagger + t^Tt^* = \mathbb{I}_N.
+\]
+
+两侧取迹，则有：
+\[
+	\sum_i \sum_j R_{ij} + \sum_m \sum_n T_{nm} = \sum_i R_i + \sum_n T_n = \sum_k 1. 
+\]
+
+所有求和指标均从$1$求和至$N$。其中由于求和项有限，可以交换$m$和$n$的求和顺序，移项可将方程重新写为：
+\[
+	\sum_i T_i = \sum_i (1-R_i).
+\]
+
+类似的，利用$t = t'^T$，则有$t^\dagger = t'^*$，从而有：
+\[
+	r' r'^\dagger + t'^Tt'^* = \mathbb{I}_N.
+\]
+
+同样的，两侧取迹，交换求和顺序，移项可以得到：
+\[
+	\sum_i T_i' = \sum_i (1-R_i').
+\]
+
+即验证了方程(193b)。
+\end{proof}
+
+
+
+
+\end{document}

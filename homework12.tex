@@ -1,0 +1,96 @@
+\documentclass[reqno,a4paper,12pt]{amsart}
+
+\usepackage{amsmath,amssymb,amsthm,geometry,xcolor,soul,graphicx}
+\usepackage{titlesec}
+\usepackage{enumerate}
+\usepackage{lipsum}
+\usepackage{listings}
+%\RequirePackage[most]{tcolorbox}
+\usepackage{braket}
+\allowdisplaybreaks[4] %align公式跨页
+\usepackage{xeCJK}
+\setCJKmainfont[AutoFakeBold = true]{Kai}
+\geometry{left=0.7in, right=0.7in, top=1in, bottom=1in}
+
+\renewcommand{\baselinestretch}{1.3}
+
+\title{介观物理第十二次作业}
+\author{董建宇 ~~ 202328000807038}
+
+\begin{document}
+
+\maketitle
+%\titleformat{\section}[hang]{\small}{\thesection}{0.8em}{}{}
+%\titleformat{\subsection}[hang]{\small}{\thesubsection}{0.8em}{}{}
+
+\textbf{1.} 磁场中电子运动对应的哈密顿量为
+\[
+	H = \frac{1}{2m} \left[ (\mathbf{p} + e\mathbf{A})^2 \right] + V(\mathbf{r}),
+\]
+
+假设其本征波函数为$\psi$，对电磁矢势$\mathbf{A}$做规范变换：
+\[
+	\mathbf{A}'(\mathbf{r}) = \mathbf{A}(\mathbf{r}) + \nabla \chi(\mathbf{r}),
+\]
+
+请证明新规范下的本征波函数$\psi'$可以写成以下形式：
+\[
+	\psi' = e^{-i\frac{e}{\hbar}\chi(\mathbf{r})} \psi.
+\]
+
+\begin{proof}
+
+根据题目假设，$\psi$为规范变换前的哈密顿量的本征波函数，即有：
+\[
+	H \psi(\mathbf{r}) = \left[ \frac{1}{2m} (\mathbf{p}+e\mathbf{A})^2 + V(\mathbf{r}) \right] \psi(\mathbf{r}) = E \psi(\mathbf{r}).
+\]
+
+可以计算，规范变换后的哈密顿量作用在$\psi'$上如下：
+\[
+	H'\psi' = \left[ \frac{1}{2m}(\mathbf{p} + e\mathbf{A} + e\nabla \chi(\mathbf{r}))^2 + V(\mathbf{r}) \right] e^{-i\frac{e}{\hbar} \chi(\mathbf{r})}\psi
+\]
+
+其中，将哈密顿量展开如下：
+\begin{align*}
+	H' =& \frac{1}{2m}[ (\mathbf{p} + e\mathbf{A})^2 + (e\nabla\chi)^2 + (\mathbf{p} + e\mathbf{A})e\nabla \chi + e\nabla\chi(\mathbf{p} + e\mathbf{A}) ] + V(\mathbf{r}) \\
+	=& \frac{1}{2m}[\mathbf{p}^2 + e^2\mathbf{A}^2 + 2e\mathbf{A} \mathbf{p} + (e\nabla\chi)^2 + 2e\mathbf{A}e\nabla\chi + \mathbf{p}e\nabla\chi + e\nabla\chi \mathbf{p}].
+\end{align*}
+
+在坐标表象下，动量算符为$\mathbf{p} = -i\hbar\nabla$，则有：
+\begin{align*}
+	\mathbf{p}^2 \psi' =& -\hbar^2\nabla^2\left( e^{-i\frac{e}{\hbar} \chi}\psi \right) \\
+	=& -\hbar^2\left[ e^{-i\frac{e}{\hbar} \chi} \nabla^2\psi - 2i\frac{e}{\hbar} (\nabla\chi) e^{-i\frac{e}{\hbar} \chi} (\nabla \psi) - \frac{e^2}{\hbar^2}(\nabla\chi)^2 e^{-i\frac{e}{\hbar} \chi} \psi - i\frac{e}{\hbar} (\nabla^2\chi) e^{-i\frac{e}{\hbar} \chi} \psi \right]; \\
+	2e\mathbf{A} \mathbf{p} \psi' =& -2ie\hbar\mathbf{A} \left( e^{-i\frac{e}{\hbar} \chi} \nabla\psi - i\frac{e}{\hbar}(\nabla\chi) e^{-i\frac{e}{\hbar} \chi} \psi \right); \\
+	\mathbf{p} (e\nabla\chi) \psi' =& -ie\hbar \left[ (\nabla^2\chi) e^{-i\frac{e}{\hbar} \chi} \psi - i\frac{e}{\hbar}(\nabla\chi)^2 e^{-i\frac{e}{\hbar} \chi} \psi + (\nabla\chi) e^{-i\frac{e}{\hbar} \chi} \nabla\psi \right]; \\
+	e\nabla\chi \mathbf{p} =& -ie\hbar (\nabla\chi) \left[ e^{-i\frac{e}{\hbar} \chi} (\nabla\psi) - i\frac{e}{\hbar} (\nabla\chi) e^{-i\frac{e}{\hbar} \chi} \psi \right].
+\end{align*}
+
+则可以计算：
+\begin{align*}
+	H' \psi' =& e^{-i\frac{e}{\hbar} \chi} \frac{1}{2m} (-\hbar^2\nabla^2\psi + e^2\mathbf{A}^2 \psi - 2ie\hbar \mathbf{A} \nabla\psi) + e^{-i\frac{e}{\hbar} \chi} V(\mathbf{r}) \psi \\
+	=& e^{-i\frac{e}{\hbar} \chi} \left[ (\mathbf{p} + e\mathbf{A})^2 + V(\mathbf{r}) \right]\psi = e^{-i\frac{e}{\hbar} \chi} E\psi = E \psi'.
+\end{align*}
+
+即新规范下本征波函数可以写成：
+\[
+	\psi' = e^{-i\frac{e}{\hbar} \chi(\mathbf{r})} \psi.
+\]
+
+对应本征值不变。
+\end{proof}
+
+
+\textbf{2.}阅读Klaus von Klitzing的短文\emph{“Quantum Hall Effect and the New International System of Units"}, Phys. Rev. Lett. \textbf{122},200001 (2019)及相关文献，简要叙述量子霍尔效应在新国际单位制形成中发挥的作用。
+
+\begin{proof}
+
+量子霍尔效应展示了在二维电子系统中，霍尔电阻会以精确的量子化步进形式出现，其基本电阻值为$\frac{\hbar}{e^2}$，约为25.8 kΩ。这一发现为直接测定基本常数和实现独立于设备微观细节的电阻标准提供了可能性。
+
+新国际单位制将整合基于约瑟夫森效应和量子霍尔效应的电压和电阻量子标准。这种统一基于自然常数的计量系统，将提高电压和电阻校准的精确性和一致性。例如，文章中提到电压校准将改变$0.107ppm$，电阻校准将改变$0.018ppm$。
+
+此外，文章还提到，量子霍尔效应通过比较机械功率和电功率，间接地为基于普朗克常数的新千克定义做出了贡献。新的千克定义将不再依赖于实物原器，而是基于固定的普朗克常数。
+
+\end{proof}
+
+
+\end{document}

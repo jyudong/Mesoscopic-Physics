@@ -1,0 +1,156 @@
+\documentclass[reqno,a4paper,12pt]{amsart}
+
+\usepackage{amsmath,amssymb,amsthm,geometry,xcolor,soul,graphicx}
+\usepackage{titlesec}
+\usepackage{enumerate}
+\usepackage{lipsum}
+\usepackage{listings}
+%\RequirePackage[most]{tcolorbox}
+\usepackage{braket}
+\allowdisplaybreaks[4] %align公式跨页
+\usepackage{xeCJK}
+\setCJKmainfont[AutoFakeBold = true]{Kai}
+\geometry{left=0.7in, right=0.7in, top=1in, bottom=1in}
+
+\renewcommand{\baselinestretch}{1.3}
+
+\title{介观物理第三次作业}
+\author{董建宇 ~~ 202328000807038}
+
+\begin{document}
+
+\maketitle
+\titleformat{\section}[hang]{\small}{\thesection}{0.8em}{}{}
+\titleformat{\subsection}[hang]{\small}{\thesubsection}{0.8em}{}{}
+
+\textbf{Problem I.1} Verify the Kramers-Kronig relation using the explicit solution given in Eq. (12).
+\begin{equation*}
+\begin{split}
+	&\bar{\chi}(\omega) = \frac{1}{m} \frac{1}{\omega^2 - \omega_0^2 + i\gamma \omega}, \\
+	&\bar{\chi}(t-t') = -\frac{1}{m} \int \frac{d\omega}{2\pi} \frac{e^{-i\omega(t-t')}}{\omega^2-\omega_0^2 + i\gamma \omega}.
+\end{split}
+\end{equation*}
+
+\begin{proof}
+$Kramers-Kronig$关系为：
+\begin{align*}
+	&\chi'(\omega) = \int_{-\infty}^\infty \frac{d\omega'}{\pi} \chi''(\omega') P\frac{1}{\omega'-\omega}, \\
+	&\chi''(\omega) = -\int_{-\infty}^{\infty} \frac{d\omega'}{\pi} \chi'(\omega') P \frac{1}{\omega'-\omega}.
+\end{align*}
+
+其中$\chi'(\omega)$和$\chi''(\omega)$分别为$\chi(\omega)$的实部和虚部。
+\begin{align*}
+	&\chi'(\omega) = \frac{1}{m} \frac{\omega_0^2 - \omega^2}{(\omega^2-\omega_0^2)^2 + \gamma^2\omega^2}; \\
+	&\chi''(\omega) = \frac{1}{m} \frac{\gamma \omega}{(\omega^2-\omega_0^2)^2 + \gamma^2\omega^2}
+\end{align*}
+
+则可以计算：
+\begin{align*}
+	\mathbf{I_1} = &\int_{-\infty}^{\infty} \frac{d\omega'}{\pi} \frac{1}{m} \frac{\gamma\omega'}{(\omega'^2-\omega_0^2)^2 + \gamma^2\omega'^2} P \frac{1}{\omega'-\omega} \\
+	=& \frac{1}{\pi m} \int_{-\infty}^{\infty} \frac{\gamma\omega'}{(\omega'^2-\omega_0^2)^2 + \gamma^2\omega'^2} \left[ -\frac{1}{\omega-\omega'+i0^+} - i\pi\delta(\omega-\omega') \right] d\omega' \\
+	=& - \frac{1}{\pi m} \int_{-\infty}^{\infty} \frac{\gamma\omega'}{(\omega'^2-\omega_0^2)^2 + \gamma^2\omega'^2} \frac{1}{\omega-\omega'+i0^+} d\omega' - \frac{i}{m}\frac{\gamma\omega}{(\omega^2-\omega_0^2)^2 + \gamma^2\omega^2}.
+\end{align*}
+
+被积函数记作：
+\begin{align*}
+	f(\omega') =& \frac{\gamma\omega'}{(\omega'^2-\omega_0^2)^2 + \gamma^2\omega'^2} \frac{1}{\omega-\omega'+i0^+} \\
+	=& \frac{\gamma\omega'}{(\omega+i0^+-\omega')(\omega'-\omega_1)(\omega'-\omega_2)(\omega'-\omega_1^*)(\omega'-\omega_2^*)}.
+\end{align*}
+
+其中
+\[
+	\omega_1 = \frac{i\gamma+\sqrt{\Delta}}{2}; \ \ \omega_2 = \frac{i\gamma-\sqrt{\Delta}}{2}; \ \ \Delta = 4\omega_0^2-\gamma^2.
+\]
+
+即被积函数在上半复平面有三个奇点，分别是$\omega+i0^+; \ \omega_1; \ \omega_2$。分别计算其留数可得：
+\begin{align*}
+	\mathbf{Res}[f(\omega'), \omega+i0^+] =& -\frac{\gamma\omega}{(\omega^2-\omega_0^2)^2 + \gamma^2\omega^2}; \\
+	\mathbf{Res}[f(\omega'), \omega_1] =& \frac{\gamma\omega_1}{(\omega-\omega_1)(\omega_1-\omega_2)(\omega_1-\omega_1^*)(\omega_1-\omega_2^*)} \\
+	=& \frac{\omega_1}{\omega-\omega_1} \cdot \frac{\gamma}{\sqrt{\Delta} (i\gamma)(i\gamma+\sqrt{\Delta})} \\
+	=& \frac{1}{2i\sqrt{\Delta}(\omega-\omega_1)}; \\
+	\mathbf{Res}[f(\omega'), \omega_2] =& \frac{\gamma\omega_2}{(\omega-\omega_2)(\omega_2-\omega_1)(\omega_2-\omega_1^*)(\omega_2-\omega_2^*)} \\
+	=& \frac{\omega_2}{\omega-\omega_2} \cdot \frac{\gamma}{\sqrt{\Delta} (i\gamma)(-i\gamma+\sqrt{\Delta})} \\
+	=& \frac{1}{2i\sqrt{\Delta}(\omega-\omega_2)}.
+\end{align*}
+
+利用留数定理可得，积分式为：
+\begin{align*}
+	\int_{-\infty}^\infty f(\omega') d\omega' =& 2\pi i(\mathbf{Res}[f(\omega'), \omega+i0^+] + \mathbf{Res}[f(\omega'), \omega_1] + \mathbf{Res}[f(\omega'), \omega_2]) \\
+	=& \frac{2\pi i}{(\omega^2-\omega_0^2)^2 + \gamma^2\omega^2} \left( -\gamma\omega + \frac{\omega^2-\omega_0^2+i\gamma\omega}{2i} \right)
+\end{align*}
+
+则有：
+\begin{align*}
+	\mathbf{I_1} =& -\frac{1}{\pi m} \int_{-\infty}^\infty f(\omega') d\omega' - \frac{i}{m}\frac{\gamma\omega}{(\omega^2-\omega_0^2)^2 + \gamma^2\omega^2} \\
+	=& \frac{1}{m} \frac{\omega_0^2 - \omega^2}{(\omega^2-\omega_0^2)^2 + \gamma^2\omega^2} \\
+	=& \chi'(\omega).
+\end{align*}
+
+同样的，考虑
+\begin{align*}
+	\mathbf{I_2} =& -\int_{-\infty}^{\infty} \frac{d\omega'}{\pi} \frac{1}{m} \frac{\omega_0^2-\omega'^2}{(\omega'^2-\omega_0^2)^2 + \gamma^2\omega'^2} P \frac{1}{\omega'-\omega} \\
+	=& -\frac{1}{\pi m} \int_{-\infty}^{\infty} \frac{\omega_0^2-\omega'^2}{(\omega'^2-\omega_0^2)^2 + \gamma^2\omega'^2} \left[ -\frac{1}{\omega-\omega'+i0^+} - i\pi\delta(\omega-\omega') \right] d\omega' \\
+	=& \frac{1}{\pi m} \int_{-\infty}^{\infty} \frac{\omega_0^2-\omega'^2}{(\omega'^2-\omega_0^2)^2 + \gamma^2\omega'^2} \frac{1}{\omega-\omega'+i0^+} d\omega' + \frac{i}{m}\frac{\omega_0^2-\omega^2}{(\omega^2-\omega_0^2)^2 + \gamma^2\omega^2}.
+\end{align*}
+
+被积函数记作：
+\begin{align*}
+	g(\omega') =& \frac{\omega_0^2-\omega'^2}{(\omega'^2-\omega_0^2)^2 + \gamma^2\omega'^2} \frac{1}{\omega-\omega'+i0^+} \\
+	=& \frac{\omega_0^2-\omega'^2}{(\omega+i0^+-\omega')(\omega'-\omega_1)(\omega'-\omega_2)(\omega'-\omega_1^*)(\omega'-\omega_2^*)}.
+\end{align*}
+
+即被积函数在上半复平面有三个奇点，分别是$\omega+i0^+; \ \omega_1; \ \omega_2$。分别计算其留数可得：
+\begin{align*}
+	\mathbf{Res}[g(\omega'), \omega+i0^+] =& \frac{\omega^2 - \omega_0^2}{(\omega^2-\omega_0^2)^2 + \gamma^2\omega^2}; \\
+	\mathbf{Res}[g(\omega'), \omega_1] =& \frac{\omega_0^2 - \omega_1^2}{(\omega-\omega_1)(\omega_1-\omega_2)(\omega_1-\omega_1^*)(\omega_1-\omega_2^*)} \\
+	=& \frac{\omega_0^2 - \omega_1^2}{\omega-\omega_1} \cdot \frac{1}{\sqrt{\Delta} (i\gamma)(i\gamma+\sqrt{\Delta})} \\
+	=& \frac{\omega_2(\omega_0^2 - \omega_1^2)}{\omega-\omega_1} \frac{-1}{2i\gamma\omega_0^2\sqrt{\Delta}}; \\
+	\mathbf{Res}[g(\omega'), \omega_2] =& \frac{\omega_0^2 - \omega_2^2}{(\omega-\omega_2)(\omega_2-\omega_1)(\omega_2-\omega_1^*)(\omega_2-\omega_2^*)} \\
+	=& \frac{\omega_0^2 - \omega_2^2}{\omega-\omega_2} \cdot \frac{1}{\sqrt{\Delta} (i\gamma)(-i\gamma+\sqrt{\Delta})} \\
+	=& \frac{\omega_1(\omega_0^2 - \omega_1^2)}{\omega-\omega_2} \frac{1}{2i\gamma\omega_0^2\sqrt{\Delta}}.
+\end{align*}
+
+利用留数定理可得，积分式为：
+\begin{align*}
+	\int_{-\infty}^\infty g(\omega') d\omega' =& 2\pi i(\mathbf{Res}[g(\omega'), \omega+i0^+] + \mathbf{Res}[g(\omega'), \omega_1] + \mathbf{Res}[g(\omega'), \omega_2]) \\
+	=& \frac{2\pi i}{(\omega^2-\omega_0^2)^2 + \gamma^2\omega^2} \left( -\frac{i\gamma\omega}{2} + \frac{\omega^2-\omega_0^2}{2} \right)
+\end{align*}
+
+则有：
+\begin{align*}
+	\mathbf{I_2} =& \frac{1}{\pi m} \int_{-\infty}^\infty g(\omega') d\omega' + \frac{i}{m}\frac{\omega_0^2-\omega^2}{(\omega^2-\omega_0^2)^2 + \gamma^2\omega^2} \\
+	=& \frac{1}{m} \frac{\gamma\omega}{(\omega^2-\omega_0^2)^2 + \gamma^2\omega^2} \\
+	=& \chi''(\omega).
+\end{align*}
+
+\end{proof}
+
+
+\textbf{Problem I.2} ${}^*$ Read Kubo's paper entitled "The fluctuation-dissipation theorem".
+
+
+\textbf{Problem I.3} Derive the Kubo formula in Eq. (28).
+\[
+	\chi(\mathbf{r}, \mathbf{r'}; \omega) = \frac{i}{\hbar} \int_{-\infty}^t dt' e^{i\omega(t-t')} \bra{0} [\hat{X}(\mathbf{r}, t), \hat{X}(\mathbf{r'}, t')] \ket{0}.
+\]
+
+\begin{proof}
+
+响应函数为：
+\[
+	\chi(\mathbf{r},t ;\mathbf{r'},t') = \frac{i}{\hbar}\theta(t-t') \bra{0} [\hat{X}(\mathbf{r}, t), \hat{X}(\mathbf{r'}, t')] \ket{0}.
+\]
+
+对于不显含时的哈密顿量，响应函数只与$t-t'$相关，令$t'' = t-t'$，做傅里叶变换可得：
+\begin{align*}
+	\chi(\mathbf{r},\mathbf{r'}; \omega) =& \int_{-\infty}^\infty e^{i\omega t''} \chi(\mathbf{r},\mathbf{r'};t'') \,dt'' \\
+	=& \frac{i}{\hbar} \int_{-\infty}^\infty e^{i\omega(t-t')} \theta(t'') \bra{0} [\hat{X}(\mathbf{r}, t), \hat{X}(\mathbf{r'}, t')] \ket{0} \,dt'' \\
+	=& \frac{i}{\hbar} \int_0^\infty e^{i\omega t''} \bra{0} [\hat{X}(\mathbf{r}, t), \hat{X}(\mathbf{r'}, t')] \ket{0} \,dt'' \\
+	=& \frac{i}{\hbar} \int_{-\infty}^t e^{i\omega(t-t')} \bra{0} [\hat{X}(\mathbf{r}, t), \hat{X}(\mathbf{r'}, t')] \ket{0} \,dt'.
+\end{align*}
+
+即得到Kubo公式。
+\end{proof}
+
+
+\end{document}

@@ -1,0 +1,62 @@
+\documentclass[reqno,a4paper,12pt]{amsart}
+
+\usepackage{amsmath,amssymb,amsthm,geometry,xcolor,soul,graphicx}
+\usepackage{titlesec}
+\usepackage{enumerate}
+\usepackage{lipsum}
+\usepackage{listings}
+%\RequirePackage[most]{tcolorbox}
+\usepackage{braket}
+\allowdisplaybreaks[4] %align公式跨页
+\usepackage{xeCJK}
+\setCJKmainfont[AutoFakeBold = true]{Kai}
+\geometry{left=0.7in, right=0.7in, top=1in, bottom=1in}
+
+\renewcommand{\baselinestretch}{1.3}
+
+\title{介观物理第十次作业}
+\author{董建宇 ~~ 202328000807038}
+
+\begin{document}
+
+\maketitle
+\titleformat{\section}[hang]{\small}{\thesection}{0.8em}{}{}
+\titleformat{\subsection}[hang]{\small}{\thesubsection}{0.8em}{}{}
+
+\textbf{Problem III.6} Verify that 
+\[
+	1 - R_{ii} - \sum_{j\neq i} T_{ij} = 0
+\]
+
+for the derivation of Eq. (210).
+
+\begin{proof}
+
+由于时间反演对称性，$S$矩阵满足幺正性。此时$S$矩阵可以写作：
+\[
+	S = \left( \begin{matrix}
+		r & t \\
+		t & r
+	\end{matrix} \right).
+\]
+
+结合上一次作业得到的结论，有：
+\[
+	R_i + T_i = 1.
+\]
+
+在这种情况下，$R_{ij} = \delta_{ij}$，$T_{ii} = 0$，则上式可重写为：
+\[
+	R_{ii} + \sum_{j\neq i} T_{ij} = 1.
+\]
+
+即：
+\[
+	1 - R_{ii} - \sum_{j\neq i}T_{ij} = 0.
+\]
+
+从物理图像理解，该式表达了透射概率和反射概率和为一。
+
+\end{proof}
+
+\end{document}

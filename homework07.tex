@@ -1,0 +1,121 @@
+\documentclass[reqno,a4paper,12pt]{amsart}
+
+\usepackage{amsmath,amssymb,amsthm,geometry,xcolor,soul,graphicx}
+\usepackage{titlesec}
+\usepackage{enumerate}
+\usepackage{lipsum}
+\usepackage{listings}
+%\RequirePackage[most]{tcolorbox}
+\usepackage{braket}
+\allowdisplaybreaks[4] %align公式跨页
+\usepackage{xeCJK}
+\setCJKmainfont[AutoFakeBold = true]{Kai}
+\geometry{left=0.7in, right=0.7in, top=1in, bottom=1in}
+
+\renewcommand{\baselinestretch}{1.3}
+
+\title{介观物理第七次作业}
+\author{董建宇 ~~ 202328000807038}
+
+\begin{document}
+
+\maketitle
+\titleformat{\section}[hang]{\small}{\thesection}{0.8em}{}{}
+\titleformat{\subsection}[hang]{\small}{\thesubsection}{0.8em}{}{}
+
+\textbf{Problem II.5} Assuming $g(L_0) = g_0$, where $L_0$ is a certain microscopic length scale, find the solution $g(L)$ to the scaling equation (148) at $d=2$ by using Eq. (154). The results can be found in Eq. (167).
+\[
+	\frac{d\ln g}{d \ln L} = \beta[g(L)]. \tag{148}
+\]
+
+\[
+	\beta(g) = d-2-\frac{a}{g}. \tag{154}
+\]
+
+\[
+	g(L) = g_0 - \frac{1}{\pi^2} \ln \left( \frac{L}{L_0} \right). \tag{167}
+\]
+
+\begin{proof}
+方程(148)可以写作：
+\[
+	\frac{d\ln g}{d\ln L} = \frac{L}{d} \frac{dg}{dL} = \beta[g(L)].
+\]
+
+其中，利用了$d\ln g = \frac{1}{g}dg$。当$d=2$时，$\beta(g) = -\frac{a}{g}$。即有：
+\[
+	-\frac{dg}{a} = \frac{dL}{L}.
+\]
+
+两侧不定积分，可得：
+\[
+	-\frac{g}{a} = \ln L + C.
+\]
+
+其中$C$为常数。当$L=L_0$时，有：
+\[
+	-\frac{g_0}{a} = \ln L_0 + C.
+\]
+
+从而确定常数$C$为
+\[
+	C = -\frac{g_0}{a} - \ln L_0.
+\]
+
+从而有：
+\[
+	g(L) = g_0 - a\ln \left( \frac{L}{L_0} \right) = g_0 - \frac{1}{\pi^2} \ln \left( \frac{L}{L_0} \right).
+\]
+
+利用了$a = \frac{1}{\pi^2}$。
+\end{proof}
+
+\textbf{Problem II.6} Find the solution in Eq. (170).
+\[
+	\sigma(L) = g_0 L_0 - a(L-L_0). \tag{170}
+\]
+
+\begin{proof}
+当$d=1$时，$\beta(g) = -1-\frac{a}{g}$，即方程(148)可化为：
+\[
+	-\frac{dg}{g+a} = \frac{dL}{L}.
+\]
+
+两侧不定积分，可得：
+\[
+	-\ln(g+a) = \ln L + C_2.
+\]
+
+其中，$C_2$为积分常数，当$L=L_0$时，有：
+\[
+	-\ln(g_0+a) = \ln L_0 + C_2.
+\]
+
+从而确定积分常数$C_2$为：
+\[
+	C_2 = -\ln(g_0+a) - \ln L_0.
+\]
+
+则$d=1$时，微分方程的解为：
+\[
+	\ln \left( \frac{g+a}{g_0+a} \right) = \ln \left( \frac{L_0}{L} \right).
+\]
+
+两侧取$e$指数，可得：
+\[
+	\frac{g+a}{g_0+a} = \frac{L_0}{L}.
+\]
+
+即：
+\[
+	g = \frac{L_0}{L}(g_0+a) - a.
+\]
+
+则电导率为：
+\[
+	\sigma(L) = gL = g_0L_0 - a(L-L_0).
+\]
+\end{proof}
+
+
+\end{document}

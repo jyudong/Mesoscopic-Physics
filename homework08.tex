@@ -1,0 +1,130 @@
+\documentclass[reqno,a4paper,12pt]{amsart}
+
+\usepackage{amsmath,amssymb,amsthm,geometry,xcolor,soul,graphicx}
+\usepackage{titlesec}
+\usepackage{enumerate}
+\usepackage{lipsum}
+\usepackage{listings}
+%\RequirePackage[most]{tcolorbox}
+\usepackage{braket}
+\allowdisplaybreaks[4] %align公式跨页
+\usepackage{xeCJK}
+\setCJKmainfont[AutoFakeBold = true]{Kai}
+\geometry{left=0.7in, right=0.7in, top=1in, bottom=1in}
+
+\renewcommand{\baselinestretch}{1.3}
+
+\title{介观物理第八次作业}
+\author{董建宇 ~~ 202328000807038}
+
+\begin{document}
+
+\maketitle
+\titleformat{\section}[hang]{\small}{\thesection}{0.8em}{}{}
+\titleformat{\subsection}[hang]{\small}{\thesubsection}{0.8em}{}{}
+
+\textbf{Problem III.1} Read Feynman’s Lectures on Physics, Vol. 2, Chapter 15 $“The \ \ Vector \ \ Potential”$. Write a short review, no less than 1000 words or 350 Chinese characters.
+
+\textsc{REVIEW:}费曼物理学讲义中关于“矢势”的章节介绍了很多普物甚至电动力学没有强调的内容，比如为什么一个磁矩再磁场中的总能量不仅包含机械能 $\vec{\mu} \cdot \mathbf{B}$，还有环形电流移动过程中产生变化的磁场，从而产生电场对螺线管电流做功产生的电能 $U_{elect}(loop)$，以及在环形电流参考系下的电能 $U_{elect}(coli)$。三者满足的数学关系如下：
+\begin{align*}
+	&U_{mech} + U_{elect}(loop) = 0; \\
+	&U_{mech} + U_{elect}(coli) = 0.
+\end{align*}
+
+从而可以计算总能量为
+\[
+	U_{total} = U_{elect}(loop) + U_{elect}(coli) + U_{mech} = -U_{mech}.
+\]
+
+即总能量等于负的机械能，从而意味着所有电流为恒流条件下，我们可以仅使用机械能替代总能量计算力或是其他物理量。
+
+随后费曼先生关于究竟是磁感应强度$\mathbf{B}$还是磁矢势$\mathbf{A}$是“真实的场”，或者叫做“物理实在”。简单而言，“真实的场”指在某一点的作用只取决于这一点的状态或性质，而不需要了解其他地方的物理状态或性质。但在一些具有较高对称性的情况下，我们直接计算磁感应强度$\mathbf{B}$会比计算磁矢势$\mathbf{A}$然后取旋度更加方便，因为当我们直接计算$\mathbf{B}$时，可以充分利用高对称性的条件，而通过磁矢势计算磁感应强度时需要知道该点及其邻域内所有点的磁矢势，才可以计算旋度。
+
+随着量子力学以及量子电动力学的提出和不断发展，磁矢势$\mathbf{A}$的重要性得以显现，在电子双缝干涉实验的双缝隔板正后方放置一个足够长的螺线管，但其将磁场束缚在螺线管内部，周围只存在磁矢势$\mathbf{A}$，而电子仍受到影响，多了一个相位偏移，即干涉强度最大的点不在双缝中点的位置。即著名的A-B效应，进一步说明了相较于磁感应强度$\mathbf{B}$，磁矢势$\mathbf{A}$是一个“真实的场”或者叫做“物理实在”。在量子力学中，决定波函数相位的动量和能量是更重要的物理量，而几乎没有人会对能量取微分，看一看“力”的表达式长什么样子。在量子力学理论框架下，磁矢势$\mathbf{A}$的规范变换任意性仍保持，在经典和量子理论框架下，只有磁矢势$\mathbf{A}$的旋度至关重要。
+
+在量子电动力学一般理论中，我们用矢势和标势作为更基本的物理量，而不是电场强度和磁感应强度。在现代物理理论表达中，$\mathbf{E}$和$\mathbf{B}$正逐步被$\phi$和$\mathbf{A}$取代。
+
+
+
+\textbf{Problem III.2} Derive Eq. (179) using Eq. (64).
+\[
+	\mathbf{j}(\mathbf{r}) = -\frac{\delta H}{\delta \mathbf{A}(\mathbf{r})}. \tag{64a}
+\]
+\[
+	I = -c\frac{\partial F}{\partial \Phi} = ck_BT\frac{\partial \ln Q}{\partial \Phi}. \tag{179}
+\]
+
+\begin{proof}
+
+哈密顿量可以写作：
+\[
+	H = \int d^3 r \left\{ \frac{1}{2m}\psi^\dagger(\mathbf{r}) \left[ \frac{\hbar}{i}\nabla - q\mathbf{A}(\mathbf{r}) \right]^2 \psi(\mathbf{r}) - q\phi(\mathbf{r}) \psi^\dagger(\mathbf{r}) \psi(\mathbf{r}) \right\} + H_{int}.
+\]
+
+从而有电流密度表达式为：
+\[
+	\mathbf{j}(\mathbf{r}) = \frac{ie\hbar}{2m}[\psi^\dagger(\mathbf{r}) \nabla \psi(\mathbf{r}) - \nabla \psi^\dagger(\mathbf{r}) \psi(\mathbf{r})] - \frac{e^2}{m} \mathbf{A}(\mathbf{r}) \rho(\mathbf{r}).
+\]
+
+带入$\psi = \vert \psi \vert e^{i\theta}$，可得：
+\[
+	\mathbf{j} = \frac{-e\vert \psi \vert^2}{m}(\hbar \nabla \theta + e \mathbf{A}).
+\]
+
+计算等式另一侧如下：
+\begin{align*}
+	-\frac{\partial F}{\partial \Phi} =& k_BT \frac{\partial \ln Q}{\partial \Phi} = -\sum_n \frac{e^{-\beta E_n}}{Q} \frac{\partial E_n}{\partial \Phi} \\
+	=& -\sum_n \frac{\partial (\bra{n} \hat{H} \ket{n})}{\partial \Phi} \frac{\partial E_n}{\partial \Phi} \\
+	=& -\sum_{n} \left( E_n \frac{\partial \langle n \vert n \rangle}{\partial \Phi} + \bra{n} \frac{\partial \hat{H}}{\partial \Phi} \ket{n} \right) \frac{\partial E_n}{\partial \Phi} \\
+	=& -\sum_n \bra{n} \frac{\partial \hat{H}}{\partial \Phi} \ket{n} \frac{\partial E_n}{\partial \Phi}.
+\end{align*}
+
+对哈密顿量做积分，可得：
+\begin{align*}
+	H =& \int d^3 r \left\{ \frac{1}{2m}\psi^\dagger(\mathbf{r}) \left[ \frac{\hbar}{i}\nabla - q\mathbf{A}(\mathbf{r}) \right]^2 \psi(\mathbf{r}) - q\phi(\mathbf{r}) \psi^\dagger(\mathbf{r}) \psi(\mathbf{r}) \right\} + H_{int} \\
+	=& \int d^3 r \frac{1}{2m} [ \psi^\dagger(\mathbf{r}) (-\hbar^2\nabla^2) \psi(\mathbf{r}) + \psi^\dagger(\mathbf{r})(-i\hbar\nabla)(-q\mathbf{A}\psi(\mathbf{r})) \\
+	 &+ \psi^\dagger(\mathbf{r})(-q\mathbf{A})(-i\hbar\nabla)\psi(\mathbf{r}) + q^2\mathbf{A}^2 \psi^\dagger(\mathbf{r})\psi(\mathbf{r})] + H_{int} \\
+	 =& \int d^3 r \frac{1}{2m}\psi^\dagger(\mathbf{r}) (-i\hbar\nabla)^2 \psi(\mathbf{r}) + \mathbf{A}(\mathbf{r})\frac{iq\hbar}{2m}[\psi^\dagger(\mathbf{r})\nabla\psi(\mathbf{r}) - (\nabla\psi^\dagger(\mathbf{r}))\psi(\mathbf{r})] \\
+	 &+ \frac{q^2\mathbf{A}^2(\mathbf{r})}{2m} \psi^\dagger(\mathbf{r}) \psi(\mathbf{r}) + H_{int}.
+\end{align*}
+
+进一步利用对称性可以得到：
+\[
+	H = \int d^3 r \frac{\Phi}{2\pi r} \mathbf{e}_\theta \cdot \left[ \frac{iq\hbar}{2m}[\psi^\dagger(\mathbf{r})(\nabla \psi(\mathbf{r})) - (\nabla\psi^\dagger(\mathbf{r})) \psi(\mathbf{r})] \right] + \frac{q^2}{2m} \frac{\Phi^2}{(2\pi r)^2} \rho(\mathbf{r}) + \text{与$\Phi$无关部分}.
+\]
+
+从而可以计算：
+\[
+	\frac{\partial H}{\partial \Phi} = \int d^3 r \frac{1}{2\pi r} \mathbf{e}_\theta \left[ \frac{iq\hbar}{2m}[\psi^\dagger(\mathbf{r})(\nabla \psi(\mathbf{r})) - (\nabla\psi^\dagger(\mathbf{r})) \psi(\mathbf{r})] \right] + \frac{q^2}{2m} \frac{\Phi^2}{(2\pi r)^2} \rho(\mathbf{r}).
+\]
+
+\textcolor{blue}{Method II}:
+
+计算自由能对$\Phi$的偏微分如下：
+\begin{align*}
+	\frac{\partial F}{\partial \Phi} =& -\frac{k_BT}{Q}\frac{\partial Q}{\partial \Phi} = -\frac{k_BT}{Q}\frac{\partial}{\partial \Phi} \mathbf{Tr}(e^{-\beta H}) \\
+	=& \frac{1}{Q} \mathbf{Tr} \left( e^{-\beta H} \frac{\partial H}{\partial \Phi} \right) \\
+	=& \frac{1}{Q} \mathbf{Tr} \left( e^{-\beta H} \frac{\partial H}{\partial \mathbf{A}} \cdot \frac{\partial \mathbf{A}}{\partial \Phi} \right) \\
+	=& \frac{1}{Q} \frac{\partial \mathbf{A}}{\partial \Phi} \cdot \mathbf{Tr} \left( e^{-\beta H} \mathbf{j} \right) \\
+	=& \frac{1}{Q} \frac{\partial \mathbf{A}}{\partial \Phi} \cdot \langle \mathbf{j} \rangle.
+\end{align*}
+
+其中，电流密度平均值可以写作：
+\[
+	\langle \mathbf{j} \rangle = \frac{I}{S} \mathbf{n}.
+\]
+
+即有：
+\[
+	\frac{\partial F}{\partial \Phi} = \frac{1}{Q} \frac{\partial \mathbf{A}}{\partial \Phi} \cdot \mathbf{n} \frac{I}{S}.
+\]
+
+即
+\[
+	I = -c\frac{\partial F}{\partial \Phi} = ck_BT \frac{\partial \ln Q}{\partial \Phi}.
+\]
+
+\end{proof}
+
+
+\end{document}
